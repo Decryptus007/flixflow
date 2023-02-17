@@ -1,0 +1,68 @@
+@import url('https://fonts.cdnfonts.com/css/playfair-display');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Playfair Display', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+small,
+a {
+  color: #eab308;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+
+.body-no-scroll {
+  overflow: hidden;
+}
+
+/* Skeleton loader */
+.skeleton {
+  width: 100%;
+  height: 100%;
+  background-image: -webkit-linear-gradient(left, #ececec 0px, #f4f4f4 40px, #ececec 80px);
+  background-image: -o-linear-gradient(left, #ececec 0px, #f4f4f4 40px, #ececec 80px);
+  background-image: linear-gradient(90deg, #ececec 0px, #f4f4f4 40px, #ececec 80px);
+  background-size: 250px;
+  -webkit-animation: shine-loading-image 2s infinite ease-out;
+  animation: shine-loading-image 1s infinite ease-out;
+}
+
+@-webkit-keyframes shine-loading-image {
+  0% {
+    background-position: -32px;
+  }
+
+  40%,
+  100% {
+    background-position: 208px;
+  }
+}
+
+@keyframes shine-loading-image {
+  0% {
+    background-position: -32px;
+  }
+
+  40%,
+  100% {
+    background-position: 208px;
+  }
+}

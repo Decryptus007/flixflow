@@ -1,0 +1,17 @@
+@import url('https://fonts.cdnfonts.com/css/-29');
+
+nav .title {
+  font-family: 'g Groovy George', 'Playfair Display', sans-serif;
+  letter-spacing: .3rem;
+}
+
+nav .active {
+  background-color: #eab308;
+  color: #171717;
+}
+
+@media (max-width: 1023px) {
+  .nav-container a {
+    color: #171717;
+  }
+}
