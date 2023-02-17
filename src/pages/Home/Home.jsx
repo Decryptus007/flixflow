@@ -6,6 +6,13 @@ import { ButtonLoader } from '../../components/Loading/Loading'
 import ComingSoon from './components/ComingSoon'
 import MostPopularMovies from './components/MostPopularMovies'
 import MostPopularSeries from './components/MostPopularSeries'
+import Select from 'react-select'
+
+const resultsOptions = [
+  { value: 5, label: '5' },
+  { value: 8, label: '8' },
+  { value: 15, label: '15' },
+]
 
 function Home() {
   const [searchResults, setSearchResults] = useState([])
@@ -14,6 +21,7 @@ function Home() {
     resultsReady: false
   })
   const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const [isFilterOpened, setIsFilterOpened] = useState(false)
 
   const abortController = useRef(new AbortController());
 
@@ -79,14 +87,39 @@ function Home() {
               <ButtonLoader />
             </div>
 
+            {/* Filter Icon */}
+            <div className="absolute top-[48px] flex items-center gap-2 cursor-pointer rounded-md p-2 border border-yellow-500 lg:top-0 lg:-right-36" onClick={() => setIsFilterOpened(!isFilterOpened)}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-yellow-500">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+              </svg>
+              <span className='text-sm lg:text-base'>Filters</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`transition-transform w-6 h-6 text-yellow-500 ${isFilterOpened && 'rotate-180'}`}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+
+            {/* Filter Bar */}
+            <div className={`${isFilterOpened ? 'block' : 'hidden'} p-2 bg-neutral-900 rounded-md border border-yellow-500 absolute z-10 left-0 top-[92px] min-h-[100px] w-[200px] flex flex-col gap-2 lg:right-0 lg:top-[48px]`}>
+              <div className="flex items-center gap-2">
+                <small>Results per Input</small>
+                <Select
+                  defaultValue={resultsOptions[2]}
+                  options={resultsOptions}
+                />
+              </div>
+            </div>
+
             {/* Results Bar */}
             <div className={`absolute top-[44px] z-10 left-0 bg-neutral-900 w-full max-h-[200px] overflow-y-auto flex flex-col shadow-sm shadow-yellow-500 ${(searching.resultsReady && isSearchFocused) ? 'block' : 'hidden'}`}>
               {
                 searchResults.length ?
                   searchResults.map(res => (
-                    <Link key={res.id} to={'/'} className="border-b border-yellow-500 px-2 py-4 flex flex-col gap-1 hover:bg-neutral-800 md:px-4">
-                      <span className='font-semibold'>{res.title}</span>
-                      <small>{res.description}</small>
+                    <Link key={res.id} to={'/'} className="border-b border-yellow-500 px-2 py-4 flex gap-2 hover:bg-neutral-800 md:px-4 md:gap-4">
+                      <img src={res.image} alt="" className='h-[100px] w-[80px] rounded-sm' />
+                      <div className="flex flex-col gap-1">
+                        <span className='font-semibold'>{res.title}</span>
+                        <small>{res.description}</small>
+                      </div>
                     </Link>
                   ))
                   :
@@ -97,7 +130,7 @@ function Home() {
               }
             </div>
           </form>
-          <div className="mt-16">
+          <div className="mt-20 lg:mt-16">
             <ComingSoon />
             <MostPopularSeries />
             <MostPopularMovies />
