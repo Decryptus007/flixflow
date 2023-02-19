@@ -41,3 +41,9 @@
   font-weight: bold;
   color: #fff;
 }
+
+/* React Select Styling */
+.css-13cymwt-control {
+  background-color: transparent !important;
+  border-color: #eab308 !important;
+}

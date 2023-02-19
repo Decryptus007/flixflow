@@ -80,7 +80,7 @@ const MovieSwiperPopularTv = forwardRef((props, ref) => {
                     <button className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       Add to Watchlist
                     </button>
-                    <Link to={'/'} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
+                    <Link to={`/flix/${movie.id}`} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       View More
                     </Link>
                   </div>
@@ -134,7 +134,7 @@ const MovieSwiperPopularTv = forwardRef((props, ref) => {
                     <button className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       Add to Watchlist
                     </button>
-                    <Link to={'/'} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
+                    <Link to={`/flix/${movie.id}`} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       View More
                     </Link>
                   </div>
