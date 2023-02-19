@@ -16,14 +16,18 @@ const resultsOptions = [
 ]
 //Year filter option
 const yearOptions = [];
-
+//Loop from year 1900 to the current year to populate the yearOptions Array
 const currentYear = new Date().getFullYear();
-for (let year = 1990; year <= currentYear; year++) {
+for (let year = 1900; year <= currentYear; year++) {
   yearOptions.push({ value: year, label: year.toString() });
 }
+yearOptions.push({ value: '', label: 'Select' })
+// For User experience I reversed the year to start from current year
+yearOptions.reverse()
 
 const yearRegex = /\b(19[0-9][0-9]|20[0-9][0-9])\b/; // matches years from 1900 to 2099
 
+// The Home component
 function Home() {
   const [searchResults, setSearchResults] = useState([])
   const [searching, setSearching] = useState({
@@ -73,27 +77,13 @@ function Home() {
         //Slice the response and set the last index to the filter
         setSearchResults([...response.data.results.slice(0, parseInt(filter.resultsNo))])
       } else {
-        //Reset to minimum incase the "from filter" is empty
-        if (filter.releaseDate.from === '') {
-          setFilter({
-            ...filter,
-            releaseDate: { ...filter.releaseDate, from: '1900' }
-          })
-        }
-        //Reset to maximum incase the "from filter" is empty
-        if (filter.releaseDate.to === '') {
-          setFilter({
-            ...filter,
-            releaseDate: { ...filter.releaseDate, from: '2099' }
-          })
-        }
-
         //Set the filter range of years
         let filteredYearArr = []
         response.data.results.map(item => {
           const yearMatch = item.description.match(yearRegex);
           const year = yearMatch ? yearMatch[0] : null;
-          if (year && (year >= filter.releaseDate.from && year <= filter.releaseDate.to)) {
+          //Reset to minimum incase the "from or to filter" is empty
+          if (year && (year >= (filter.releaseDate.from || 1900) && year <= (filter.releaseDate.to || 2099))) {
             filteredYearArr.push(item)
           }
         })
@@ -132,7 +122,7 @@ function Home() {
               onBlur={() => {
                 setTimeout(() => {
                   setIsSearchFocused(false)
-                }, 50);
+                }, 300);
               }}
             />
 

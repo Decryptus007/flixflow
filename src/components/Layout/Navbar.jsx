@@ -22,10 +22,30 @@ function Navbar() {
 
   return (
     <div className='overflow-hidden bg-neutral-900 mb-6 sticky z-20 top-0 left-0 shadow shadow-yellow-500'>
-      <nav className="overflow-hidden px-2 flex items-center justify-between md:px-4 2xl:container 2xl:mx-auto">
+      <nav className="overflow-hidden px-2 flex items-center justify-between md:px-4 lg:gap-4 2xl:container 2xl:mx-auto">
         <Link to="/" className='title py-4 text-2xl font-bold'>FlixFlow</Link>
 
-        <div className="flex items-center gap-8 h-full lg:hidden">
+        <form onSubmit={(e) => null} className="relative flex-grow h-[44px] hidden lg:block">
+          {/* Search Icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer text-yellow-500 absolute top-2.5 left-2" onClick={null}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <input
+            type="search"
+            name="movie-search"
+            id="movie-search"
+            autoComplete='off'
+            className='w-full h-full rounded-md bg-transparent text-yellow-500 border border-yellow-500 transition px-10 md:px-10 focus:outline-none focus:shadow-md focus:shadow-yellow-500 placeholder:text-yellow-800'
+            placeholder='Search Movies, Shows...'
+            onChange={null}
+          />
+        </form>
+
+        <div className="flex items-center gap-4 h-full lg:hidden">
+          {/* Search Icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer text-yellow-500" onClick={null}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
           {/* Mobile WatchList Menu */}
           <Link to={'/watchlist'} className='relative flex'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">

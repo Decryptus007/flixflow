@@ -53,9 +53,9 @@ function MovieDetails() {
                 </div>
                 <div className="flex items-center gap-2 md:gap-4">
                   <span className="py-1 px-4 rounded-xl bg-blue-600 text-white font-mono text-sm md:text-base">{movieData.type}</span>
-                  <span className="py-1 px-4 rounded-xl bg-green-600 text-white font-mono text-sm md:text-base">{movieData.runtimeStr}</span>
+                  <span className="py-1 px-4 rounded-xl bg-green-600 text-white font-mono text-sm md:text-base">{movieData.runtimeStr || 'N/A'}</span>
                   <span className="py-1 px-4 rounded-xl bg-yellow-500 flex items-center gap-2">
-                    <span className='text-white font-mono text-sm md:text-base'>{movieData.imDbRating}</span>
+                    <span className='text-white font-mono text-sm md:text-base'>{movieData.imDbRating || 'N/A'}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                       <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
                     </svg>
@@ -84,27 +84,27 @@ function MovieDetails() {
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg underline font-semibold">Genres</h3>
-                  <span className='text-sm md:text-base'>{movieData.genres}</span>
+                  <span className='text-sm md:text-base'>{movieData.genres || 'N/A'}</span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg underline font-semibold">Awards</h3>
-                  <span className='text-sm md:text-base'>{movieData.awards}</span>
+                  <span className='text-sm md:text-base'>{movieData.awards || 'N/A'}</span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg underline font-semibold">Prod. Companies</h3>
-                  <span className='text-sm md:text-base'>{movieData.companies}</span>
+                  <span className='text-sm md:text-base'>{movieData.companies || 'N/A'}</span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg underline font-semibold">Director</h3>
-                  <span className='text-sm md:text-base'>{movieData.directors}</span>
+                  <span className='text-sm md:text-base'>{movieData.directors || 'N/A'}</span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg underline font-semibold">Writer(s)</h3>
-                  <span className='text-sm md:text-base'>{movieData.writers}</span>
+                  <span className='text-sm md:text-base'>{movieData.writers || 'N/A'}</span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg underline font-semibold">Languages</h3>
-                  <span className='text-sm md:text-base'>{movieData.languages}</span>
+                  <span className='text-sm md:text-base'>{movieData.languages || 'N/A'}</span>
                 </div>
                 {/* Show More/Less Button */}
                 <div className="absolute bg-neutral-900 bottom-0 left-0 flex gap-2 w-full items-center justify-center">
@@ -133,7 +133,9 @@ function MovieDetails() {
                     ))
                     :
                     [0, 0, 0, 0, 0].map((_, id) => (
-                      <div key={id} className='skeleton rounded-md min-w-[100px] h-[100px] w-[100px]'></div>
+                      <div key={id} className='rounded-md min-w-[100px] h-[100px] w-[100px]'>
+                        <div className="skeleton"></div>
+                      </div>
                     ))
                 }
               </div>
