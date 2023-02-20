@@ -47,7 +47,9 @@ function PosterSwiper({ id }) {
           :
           [0, 0, 0, 0, 0].map((_, id) => (
             <SwiperSlide key={id}>
-              <div className="skeleton"></div>
+              <div className="skeleton flex items-center justify-center">
+                <b>No image found</b>
+              </div>
             </SwiperSlide>
           ))
       }

@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Select from 'react-select'
 import Layout from '../../components/Layout/Layout'
 import { ButtonLoader } from '../../components/Loading/Loading'
 import ComingSoon from './components/ComingSoon'
 import MostPopularMovies from './components/MostPopularMovies'
 import MostPopularSeries from './components/MostPopularSeries'
-import Select from 'react-select'
+
+import './styles.css'
 
 //Results filter option
 const resultsOptions = [
@@ -46,6 +48,7 @@ function Home() {
     }
   })
 
+  // The initialization to cancel Promises
   const abortController = useRef(new AbortController());
 
   function handleSearch(e) {

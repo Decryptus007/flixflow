@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import SearchBar from './components/SearchBar'
 
-import './styles.css'
+import '../styles.css'
 
 function Navbar() {
+  const { pathname } = useLocation();
+
   const [navBarToggled, setNavBarToggled] = useState(false)
+  const [showMobileSearch, setShowMobileSearch] = useState(false)
 
   //This is added to prevent the window from scrolling while the navbar is opened
   useEffect(() => {
@@ -19,33 +23,47 @@ function Navbar() {
     };
   }, [navBarToggled])
 
+  //Handle back button when Search bar is active on Mobile Screen
+  useEffect(() => {
+    const handlePopstate = (event) => {
+      if (event.state && event.state.search) {
+        setShowMobileSearch(false);
+      }
+    };
+    window.addEventListener('popstate', handlePopstate);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+    };
+  }, []);
+
+  function openMobileSearch() {
+    setShowMobileSearch(true)
+    window.history.pushState({ search: true }, '', '?search=true');  // add a new history entry
+  }
+
+  function closeMobileSearch() {
+    setShowMobileSearch(false)
+    window.history.back(); // go back to the previous history entry
+  }
 
   return (
-    <div className='overflow-hidden bg-neutral-900 mb-6 sticky z-20 top-0 left-0 shadow shadow-yellow-500'>
-      <nav className="overflow-hidden px-2 flex items-center justify-between md:px-4 lg:gap-4 2xl:container 2xl:mx-auto">
+    <div className='bg-neutral-900 mb-6 sticky z-20 top-0 left-0 shadow shadow-yellow-500'>
+      <nav className="relative px-2 flex items-center justify-between md:px-4 lg:gap-4 2xl:container 2xl:mx-auto">
         <Link to="/" className='title py-4 text-2xl font-bold'>FlixFlow</Link>
 
-        <form onSubmit={(e) => null} className="relative flex-grow h-[44px] hidden lg:block">
-          {/* Search Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer text-yellow-500 absolute top-2.5 left-2" onClick={null}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-          <input
-            type="search"
-            name="movie-search"
-            id="movie-search"
-            autoComplete='off'
-            className='w-full h-full rounded-md bg-transparent text-yellow-500 border border-yellow-500 transition px-10 md:px-10 focus:outline-none focus:shadow-md focus:shadow-yellow-500 placeholder:text-yellow-800'
-            placeholder='Search Movies, Shows...'
-            onChange={null}
-          />
-        </form>
+        {/* Search Input */}
+        {/* It should only display the search bar if the path is not Home */}
+        {pathname !== '/' && <SearchBar desktop={true} />}
 
         <div className="flex items-center gap-4 h-full lg:hidden">
           {/* Search Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer text-yellow-500" onClick={null}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
+          {/* It should only display the search bar if the path is not Home */}
+          {
+            pathname !== '/' && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer text-yellow-500" onClick={openMobileSearch}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          }
           {/* Mobile WatchList Menu */}
           <Link to={'/watchlist'} className='relative flex'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
@@ -73,8 +91,18 @@ function Navbar() {
           <NavLink to={'/top-250-movies'} activeclassname="active" className='px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>Top 250 Movies</NavLink>
           <NavLink to={'/top-250-series'} activeclassname="active" className='px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>Top 250 Series</NavLink>
           <NavLink to={'/in-theaters'} activeclassname="active" className='px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>In Theaters</NavLink>
-          <NavLink to={'/all-time-box-office'} activeclassname="active" className='px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>All Time Box Office</NavLink>
+          <NavLink to={'/all-time-box-office'} activeclassname="active" className='mid-none px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>All Time Box Office</NavLink>
         </div>
+
+        {/* Mobile Search */}
+        {showMobileSearch &&
+          <>
+            <div className="fixed w-screen h-screen top-0 left-0 z-20" onClick={closeMobileSearch}></div>
+            <div className="absolute z-30 top-16 left-0 w-full bg-white">
+              <SearchBar />
+            </div>
+          </>
+        }
       </nav>
     </div>
   )

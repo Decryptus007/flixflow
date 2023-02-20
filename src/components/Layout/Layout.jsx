@@ -1,6 +1,8 @@
 import React from 'react'
+import Navbar from './Navbar/Navbar'
 import Footer from './Footer'
-import Navbar from './Navbar'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 
 function Layout({ children }) {
   return (
@@ -10,6 +12,7 @@ function Layout({ children }) {
         {children}
       </div>
       <Footer />
+      <ToastContainer />
     </>
   )
 }

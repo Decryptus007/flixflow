@@ -6,12 +6,25 @@ import Loading from './components/Loading/Loading'
 const Home = lazy(() => import('./pages/Home/Home'))
 const Top250Movies = lazy(() => import('./pages/TopMovies/Top250Movies'))
 const MovieDetails = lazy(() => import('./pages/MovieDetails/MovieDetails'))
+const WatchList = lazy(() => import('./pages/WatchList/WatchList'))
 
 function App() {
   // Reset page scroll when navigating to another path
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Reset the title and meta head if the path !== movie page
+    if (!pathname.includes('/flix/tt')) {
+      //Check if the document.title has been modified
+      if (document.title !== 'FlixFlow') {
+        document.title = 'FlixFlow'
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute("content", "Discover your next favorite movie with FlixFlow - the ultimate movie search web app. Find the latest releases, explore top-rated films, and search by keyword to uncover hidden gems. With FlixFlow, your next movie night is just a click away.");
+        }
+      }
+    }
   }, [pathname]);
 
   return (
@@ -29,6 +42,11 @@ function App() {
           </Suspense>
         } />
       </Route>
+      <Route path="/watchlist" element={
+        <Suspense fallback={<Loading />}>
+          <WatchList />
+        </Suspense>
+      } />
       <Route path="/top-250-movies" element={
         <Suspense fallback={<Loading />}>
           <Top250Movies />

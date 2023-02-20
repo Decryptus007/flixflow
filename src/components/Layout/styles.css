@@ -10,6 +10,12 @@ nav .active {
   color: #171717;
 }
 
+@media screen and (min-width: 1024px) and (max-width: 1135px) {
+  .mid-none {
+    display: none;
+  }
+}
+
 @media (max-width: 1023px) {
   .nav-container a {
     color: #171717;
