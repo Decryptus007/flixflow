@@ -65,7 +65,7 @@ function MovieDetails() {
   const sharePage = async () => {
     if (navigator.share) {
       try {
-        if (movieData.length) {
+        if (movieData.title) {
           const response = await fetch(movieData.image);
           const blob = await response.blob();
 
