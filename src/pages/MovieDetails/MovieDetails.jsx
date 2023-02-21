@@ -75,15 +75,27 @@ function MovieDetails() {
   const sharePage = async () => {
     if (navigator.share) {
       try {
-        const response = await fetch(movieData.image);
-        const blob = await response.blob();
+        if (movieData.title) {
+          const response = await fetch(movieData.image);
+          const blob = await response.blob();
+          const filesArray = [
+            new File(
+              [blob],
+              `${movieData.title}.jpg`,
+              {
+                type: "image/jpeg",
+                lastModified: new Date().getTime()
+              }
+            )
+          ];
 
-        await navigator.share({
-          title: document.title,
-          url: window.location.href,
-          text: movieData.plot,
-          files: [blob],
-        });
+          await navigator.share({
+            title: movieData.title,
+            url: window.location.href,
+            text: movieData.plot,
+            files: filesArray,
+          });
+        }
       } catch (error) {
         notify.error("Error sharing page")
       }

@@ -5,8 +5,11 @@ import Loading from './components/Loading/Loading'
 //Lazy imports
 const Home = lazy(() => import('./pages/Home/Home'))
 const Top250Movies = lazy(() => import('./pages/TopMovies/Top250Movies'))
+const Top250Series = lazy(() => import('./pages/TopMovies/Top250Series'))
 const MovieDetails = lazy(() => import('./pages/MovieDetails/MovieDetails'))
 const WatchList = lazy(() => import('./pages/WatchList/WatchList'))
+const InTheaters = lazy(() => import('./pages/InTheaters'))
+const AllTimeBoxOffice = lazy(() => import('./pages/AllTimeBoxOffice'))
 
 function App() {
   // Reset page scroll when navigating to another path
@@ -50,6 +53,21 @@ function App() {
       <Route path="/top-250-movies" element={
         <Suspense fallback={<Loading />}>
           <Top250Movies />
+        </Suspense>
+      } />
+      <Route path="/top-250-series" element={
+        <Suspense fallback={<Loading />}>
+          <Top250Series />
+        </Suspense>
+      } />
+      <Route path="/in-theaters" element={
+        <Suspense fallback={<Loading />}>
+          <InTheaters />
+        </Suspense>
+      } />
+      <Route path="//all-time-box-office" element={
+        <Suspense fallback={<Loading />}>
+          <AllTimeBoxOffice />
         </Suspense>
       } />
 

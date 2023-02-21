@@ -57,16 +57,19 @@ function WatchList() {
                   </div>
                 ))
                 :
-                <div className="w-full h-[150px] rounded-md overflow-hidden shadow shadow-yellow-200 flex lg:w-[250px] lg:h-[300px] lg:flex-col">
-                  <div className='h-full w-[35%] bg-yellow-500 lg:w-full skeleton-lite'></div>
-                  <div className="h-full flex-grow p-2 flex flex-col justify-between lg:p-4">
-                    <p className="font-semibold text-base w-full h-6 lg:text-lg skeleton-lite"></p>
-                    <div className="flex justify-between flex-col gap-2 lg:gap-0 lg:items-center lg:flex-row">
-                      <span className='w-1/2 h-6 skeleton-lite'></span>
-                      <span className='w-[20%] h-6 skeleton-lite'></span>
-                    </div>
-                    <p className="font-semibold text-base w-full h-6 lg:text-lg skeleton-lite"></p>
-                  </div>
+                // <div className="w-full h-[150px] rounded-md overflow-hidden shadow shadow-yellow-200 flex lg:w-[250px] lg:h-[300px] lg:flex-col">
+                //   <div className='h-full w-[35%] bg-yellow-500 lg:w-full skeleton-lite'></div>
+                //   <div className="h-full flex-grow p-2 flex flex-col justify-between lg:p-4">
+                //     <p className="font-semibold text-base w-full h-6 lg:text-lg skeleton-lite"></p>
+                //     <div className="flex justify-between flex-col gap-2 lg:gap-0 lg:items-center lg:flex-row">
+                //       <span className='w-1/2 h-6 skeleton-lite'></span>
+                //       <span className='w-[20%] h-6 skeleton-lite'></span>
+                //     </div>
+                //     <p className="font-semibold text-base w-full h-6 lg:text-lg skeleton-lite"></p>
+                //   </div>
+                // </div>
+                <div className="flex items-center justify-center">
+                  <h2 className="text-xl">No Flix in your Watchlist</h2>
                 </div>
               }
             </div>

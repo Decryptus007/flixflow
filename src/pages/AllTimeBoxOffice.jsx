@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import Layout from '../../components/Layout/Layout'
-import { addToWatchList, checkIfMovieExist } from '../../utils/handleWatchList';
+import Layout from '../components/Layout/Layout'
+import { addToWatchList, checkIfMovieExist } from '../utils/handleWatchList';
 
 const itemsPerPage = 10; // maximum number of items to display per page
 
-function Top250Movies() {
+function AllTimeBoxOffice() {
   const navigate = useNavigate()
 
   const [movies, setMovies] = useState([])
@@ -25,7 +25,7 @@ function Top250Movies() {
 
   async function fetchMovieData() {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL_LANG}/Top250Movies/${import.meta.env.VITE_IMDB_API_KEY}`)
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL_LANG}/BoxOfficeAllTime/${import.meta.env.VITE_IMDB_API_KEY}`)
       setMovies(response.data.items)
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ function Top250Movies() {
     <Layout>
       <div className="pb-20 2xl:container 2xl:mx-auto">
         <div className="px-2 md:px-4">
-          <h2 className="text-2xl font-bold">IMDB Top 250 Movies</h2>
+          <h2 className="text-2xl font-bold">All Time Box Office</h2>
           <div className="mt-6">
             <div className="flex flex-col gap-4 mx-auto lg:w-[700px]">
               {
@@ -55,14 +55,9 @@ function Top250Movies() {
                     <div key={movie.id}
                       className="cursor-pointer rounded-md overflow-hidden border border-yellow-500 h-[150px] flex transition-transform hover:scale-[1.01]"
                     >
-                      <img
-                        src={movie.image}
-                        alt="" className='skeleton-lite w-[35%] lg:w-[200px]'
-                        onClick={() => navigate(`/flix/${movie.id}`)}
-                      />
                       <div className="flex w-full p-2 justify-evenly flex-col">
-                        <span><b>Rank:</b> #{movie.rank}</span>
                         <p className="font-semibold" onClick={() => navigate(`/flix/${movie.id}`)}>{movie.title}</p>
+                        <span>All Time Gross: <b className='font-mono'>{movie.worldwideLifetimeGross}</b></span>
                         <div className="flex w-full items-center justify-between">
                           <span>{movie.year}</span>
                           <button
@@ -105,4 +100,4 @@ function Top250Movies() {
   )
 }
 
-export default Top250Movies
+export default AllTimeBoxOffice

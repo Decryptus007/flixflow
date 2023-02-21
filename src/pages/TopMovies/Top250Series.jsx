@@ -6,7 +6,7 @@ import { addToWatchList, checkIfMovieExist } from '../../utils/handleWatchList';
 
 const itemsPerPage = 10; // maximum number of items to display per page
 
-function Top250Movies() {
+function Top250Series() {
   const navigate = useNavigate()
 
   const [movies, setMovies] = useState([])
@@ -25,7 +25,7 @@ function Top250Movies() {
 
   async function fetchMovieData() {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL_LANG}/Top250Movies/${import.meta.env.VITE_IMDB_API_KEY}`)
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL_LANG}/Top250Tvs/${import.meta.env.VITE_IMDB_API_KEY}`)
       setMovies(response.data.items)
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ function Top250Movies() {
     <Layout>
       <div className="pb-20 2xl:container 2xl:mx-auto">
         <div className="px-2 md:px-4">
-          <h2 className="text-2xl font-bold">IMDB Top 250 Movies</h2>
+          <h2 className="text-2xl font-bold">IMDB Top 250 Series</h2>
           <div className="mt-6">
             <div className="flex flex-col gap-4 mx-auto lg:w-[700px]">
               {
@@ -105,4 +105,4 @@ function Top250Movies() {
   )
 }
 
-export default Top250Movies
+export default Top250Series
