@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCards, Pagination } from "swiper";
+import { addToWatchList, checkIfMovieExist } from "../../../../utils/handleWatchList";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/pagination";
@@ -77,8 +78,14 @@ const MovieSwiperPopularTv = forwardRef((props, ref) => {
                     <small className="font-semibold">{movie.crew}</small>
                   </div>
                   <div className="mt-4 flex items-center gap-4">
-                    <button className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
-                      Add to Watchlist
+                    <button
+                      onClick={() => {
+                        addToWatchList(movie)
+                        getMostPopularOptimized()
+                      }}
+                      className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'
+                    >
+                      {checkIfMovieExist(movie.id) ? 'Remove' : 'Add to Watchlist'}
                     </button>
                     <Link to={`/flix/${movie.id}`} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       View More
@@ -131,8 +138,14 @@ const MovieSwiperPopularTv = forwardRef((props, ref) => {
                     <small className="font-semibold">{movie.crew}</small>
                   </div>
                   <div className="mt-4 flex items-center gap-4">
-                    <button className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
-                      Add to Watchlist
+                    <button
+                      onClick={() => {
+                        addToWatchList(movie)
+                        getMostPopularOptimized()
+                      }}
+                      className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'
+                    >
+                      {checkIfMovieExist(movie.id) ? 'Remove' : 'Add to Watchlist'}
                     </button>
                     <Link to={`/flix/${movie.id}`} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       View More

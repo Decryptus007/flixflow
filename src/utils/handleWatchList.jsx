@@ -21,22 +21,32 @@ export const addToWatchList = (movieObj) => {
   }
 
   let watchlist = []
-  const { id, image, title, year } = movieObj
+  const { id, image, title, year, starList, crew } = movieObj
   if (localStorage.getItem('watchlist') !== null) {
     watchlist = JSON.parse(localStorage.getItem('watchlist'))
     const hasId = watchlist.some(movie => movie.id === id);
 
     // Check if movie is not added
     if (!hasId) {
+      let starActor;
+      if (starList && starList.length > 0) {
+        starActor = starList[0].name;
+      } else if (crew) {
+        starActor = crew.split(",")[0];
+      } else {
+        starActor = "Unknown";
+      }
+
       watchlist = [
         {
           id: id,
           image: image,
           title: title,
-          year: year
+          year: year,
+          starActor: starActor
         },
         ...watchlist
-      ]
+      ];
 
       localStorage.setItem('watchlist', JSON.stringify(watchlist))
       add()
@@ -77,3 +87,12 @@ export function checkIfMovieExist(id) {
 
   return hasId
 }
+
+export function getWatchlistNo() {
+  if (localStorage.getItem('watchlist') !== null) {
+    const watchlistNo = JSON.parse(localStorage.getItem('watchlist')).length
+    return watchlistNo
+  } else {
+    return '0'
+  }
+} 

@@ -8,6 +8,7 @@ import Loading from '../../components/Loading/Loading';
 import Layout from '../../components/Layout/Layout'
 import PosterSwiper from './components/PosterSwiper'
 import Recommended from './components/Recommended'
+import { addToWatchList, checkIfMovieExist } from '../../utils/handleWatchList';
 import './styles.css'
 
 //Prevent duplicate toast
@@ -22,6 +23,16 @@ function MovieDetails() {
   const [movieData, setMovieData] = useState({ actorList: [] })
   const [moreDetails, setMoreDetails] = useState(false)
 
+  // Set favorites state
+  const [isLoved, setIsLoved] = useState(false)
+  useEffect(() => {
+    if (movieData.id) {
+      setIsLoved(checkIfMovieExist(movieData.id))
+    }
+  }, [movieData])
+
+
+  //Clear movieData if another movie want to render in the same page
   const { pathname } = useLocation();
   useEffect(() => {
     setMovieData({ actorList: [] })
@@ -39,7 +50,6 @@ function MovieDetails() {
   useEffect(() => {
     fetchMovieData(id)
   }, [id])
-
 
   // Toast Notification
   const notify = {
@@ -65,19 +75,15 @@ function MovieDetails() {
   const sharePage = async () => {
     if (navigator.share) {
       try {
-        if (movieData.title) {
-          const response = await fetch(movieData.image);
-          const blob = await response.blob();
+        const response = await fetch(movieData.image);
+        const blob = await response.blob();
 
-          await navigator.share({
-            title: document.title,
-            url: window.location.href,
-            text: movieData.plot,
-            files: [blob],
-          });
-        } else {
-          notify.warning("The page you are attempting to share is currently loading")
-        }
+        await navigator.share({
+          title: document.title,
+          url: window.location.href,
+          text: movieData.plot,
+          files: [blob],
+        });
       } catch (error) {
         notify.error("Error sharing page")
       }
@@ -116,10 +122,21 @@ function MovieDetails() {
                             <path fillRule="evenodd" d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 110-4.132l8.421-4.679a3 3 0 01-.096-.755z" clipRule="evenodd" />
                           </svg>
                           {/* Love */}
-                          <Link to={'/watchlist'}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-yellow-500 cursor-pointer w-6 h-6">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg></Link>
+                          <div onClick={() => {
+                            addToWatchList(movieData)
+                            setIsLoved(checkIfMovieExist(movieData.id))
+                          }}
+                          >
+                            {(isLoved || checkIfMovieExist(movieData.id)) ?
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 cursor-pointer text-yellow-500">
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                              </svg>
+                              :
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-yellow-500 cursor-pointer w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                              </svg>
+                            }
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 md:gap-4">

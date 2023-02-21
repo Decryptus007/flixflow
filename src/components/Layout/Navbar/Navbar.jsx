@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import SearchBar from './components/SearchBar'
+import { getWatchlistNo } from '../../../utils/handleWatchList';
 
 import '../styles.css'
 
@@ -9,6 +10,18 @@ function Navbar() {
 
   const [navBarToggled, setNavBarToggled] = useState(false)
   const [showMobileSearch, setShowMobileSearch] = useState(false)
+  //Constantly check the number of watchList
+  const [watchListNo, setWatchListNo] = useState(0)
+  useEffect(() => {
+    const fetchWatchListNo = setInterval(() => {
+      setWatchListNo(getWatchlistNo())
+    }, 1000);
+
+    return () => {
+      clearInterval(fetchWatchListNo)
+    }
+  }, [])
+
 
   //This is added to prevent the window from scrolling while the navbar is opened
   useEffect(() => {
@@ -69,7 +82,7 @@ function Navbar() {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
             </svg>
-            <sup className='text-yellow-500 rounded-full -ml-1 mt-2 font-bold'>0</sup>
+            <sup className='text-yellow-500 rounded-full -ml-1 mt-2 font-bold font-mono'>{watchListNo}</sup>
           </Link>
 
           {/* Mobile Nav Toggler */}
@@ -86,7 +99,10 @@ function Navbar() {
           <h2 className="text-3xl block py-4 text-neutral-900 font-bold text-center title lg:hidden">FlixFlow</h2>
 
           {/* Desktop WatchList Menu */}
-          <NavLink to={'/watchlist'} activeclassname="active" className='hidden pr-10 font-bold px-2 py-4 transition hover:text-neutral-900 hover:bg-yellow-500 lg:block'>My WatchList<sup className='active rounded-full !p-1'>0</sup></NavLink>
+          <NavLink to={'/watchlist'} activeclassname="active" className='hidden pr-10 font-bold px-2 py-4 transition hover:text-neutral-900 hover:bg-yellow-500 lg:block'
+          >
+            My WatchList<sup className='active rounded-full !p-1 font-mono'>{watchListNo}</sup>
+          </NavLink>
 
           <NavLink to={'/top-250-movies'} activeclassname="active" className='px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>Top 250 Movies</NavLink>
           <NavLink to={'/top-250-series'} activeclassname="active" className='px-2 py-4 border-y border-neutral-900 lg:border-y-0 lg:border-x lg:border-yellow-500 transition hover:text-neutral-900 hover:bg-yellow-500'>Top 250 Series</NavLink>

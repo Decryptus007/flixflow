@@ -78,8 +78,14 @@ const MovieSwiper = forwardRef((props, ref) => {
                     <small className="font-semibold">{movie.stars}</small>
                   </div>
                   <div className="mt-4 flex items-center gap-4">
-                    <button className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
-                      Add to Watchlist
+                    <button
+                      onClick={() => {
+                        addToWatchList(movie)
+                        getComingSoonOptimized()
+                      }}
+                      className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'
+                    >
+                      {checkIfMovieExist(movie.id) ? 'Remove' : 'Add to Watchlist'}
                     </button>
                     <Link to={`/flix/${movie.id}`} className='bg-yellow-500 w-fit text-sm text-neutral-900 font-bold rounded-lg px-4 py-2'>
                       View More
