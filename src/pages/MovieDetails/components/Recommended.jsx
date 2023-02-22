@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectCards, Pagination } from "swiper";
+import { Pagination } from "swiper";
 import { addToWatchList, checkIfMovieExist } from "../../../utils/handleWatchList";
 import "swiper/css";
 import "swiper/css/effect-cards";
@@ -22,14 +22,10 @@ const Recommended = ({ recommend }) => {
     <Swiper
       slidesPerView={4}
       spaceBetween={20}
-      autoplay={{
-        delay: 10000,
-        disableOnInteraction: false,
-      }}
       pagination={{
         clickable: true,
       }}
-      modules={[Autoplay, Pagination]}
+      modules={[Pagination]}
       className="mySwiper"
     >
       {

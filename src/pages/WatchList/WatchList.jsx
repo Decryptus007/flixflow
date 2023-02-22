@@ -30,10 +30,10 @@ function WatchList() {
                   <div key={movie.id} className="w-full h-[150px] rounded-md overflow-hidden shadow shadow-yellow-200 flex lg:w-[250px] lg:h-[300px] lg:flex-col">
                     <img
                       src={movie.image} alt=""
-                      className='cursor-pointer h-full w-[35%] bg-yellow-500 lg:h-1/2 lg:w-full'
+                      className='cursor-pointer h-full w-[35%] skeleton-lite lg:h-1/2 lg:w-full'
                       onClick={() => navigate(`/flix/${movie.id}`)}
                     />
-                    <div className="h-full p-2 flex flex-col justify-between lg:p-4">
+                    <div className="h-full p-2 flex flex-col justify-between lg:h-1/2 lg:p-4">
                       <p
                         onClick={() => navigate(`/flix/${movie.id}`)}
                         className="cursor-pointer font-semibold text-base lg:text-lg"

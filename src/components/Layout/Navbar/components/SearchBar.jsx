@@ -144,7 +144,7 @@ function SearchBar({ desktop }) {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <span>Release Year:</span>
+          <span>Release Date:</span>
           <div className='flex items-center justify-between gap-2'>
             <div className='flex items-center gap-1'>
               <small>From:</small>
@@ -168,6 +168,10 @@ function SearchBar({ desktop }) {
               />
             </div>
           </div>
+          {/* Disclaimer */}
+          <small className='font-sans block text-center pt-1 border border-yellow-500'>
+            Filter by Genre is not available due to the limitation of IMDB API
+          </small>
         </div>
       </div>
 

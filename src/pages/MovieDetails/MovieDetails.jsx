@@ -208,6 +208,13 @@ function MovieDetails() {
                         <h3 className="text-lg underline font-semibold">Languages</h3>
                         <span className='text-sm md:text-base'>{movieData.languages || 'N/A'}</span>
                       </div>
+                      <a
+                        href={`https://www.imdb.com/title/${movieData.id}`}
+                        target={'_blank'}
+                        className="mt-4 p-2 bg-yellow-500 font-bold text-neutral-900 rounded-md text-sm"
+                      >
+                        View More from IMDB
+                      </a>
                       {/* Show More/Less Button */}
                       <div className="absolute bg-neutral-900 bottom-0 left-0 flex gap-2 w-full items-center justify-center">
                         {/* Yellow lines div below */}
@@ -231,7 +238,13 @@ function MovieDetails() {
                       {
                         movieData.actorList.length ?
                           movieData.actorList.map((img, id) => (
-                            <img key={id} src={img.image} alt="" className='rounded-md min-w-[100px] h-[100px] w-[100px]' />
+                            <a href={`https://www.imdb.com/name/${img.id}`} target="_blank">
+                              <img
+                                key={id}
+                                src={img.image} alt=""
+                                className='rounded-md min-w-[100px] h-[100px] w-[100px]'
+                              />
+                            </a>
                           ))
                           :
                           [0, 0, 0, 0, 0].map((_, id) => (
