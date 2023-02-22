@@ -20,7 +20,7 @@ This will start the development server on `http://localhost:<your-vite-default-p
 ## Features
 
 - Search movies, series, and more
-- Filter by type, year, and genre
+- Filter by year and results count
 - View details of each movie, including synopsis, rating, and cast
 - View similar movies and series
 - Swipe through movie images using Swiper.js
