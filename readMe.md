@@ -1,3 +1,5 @@
+On Feb 27th: A fix (3 commits) was made on the font library to reflect the new changes from `cdnfonts` to modify the stylesheets which was causing the web app to break.
+
 # Movie Search Web Application
 
 This is a web application for searching movies, series, and more. It is built with Vite and React, and uses the IMDB Open source API for fetching data. It also includes Swiper.js for image carousel, react-toastify for in-app toast notification, and react-select for filter input.
