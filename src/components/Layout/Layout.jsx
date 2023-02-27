@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 function Layout({ children }) {
   return (
     <>
-      <div className='min-h-[90vh] bg-neutral-900'>
+      <div className='bg-neutral-900'>
         <Navbar />
         {children}
       </div>

@@ -15,12 +15,12 @@ function WatchList() {
   }
 
   useEffect(() => {
-    renderWatchList()
+    JSON.parse(localStorage.getItem('watchlist')) !== null && renderWatchList()
   }, []);
 
   return (
     <Layout>
-      <div className="2xl:container 2xl:mx-auto">
+      <div className="min-h-[90vh] 2xl:container 2xl:mx-auto">
         <div className="overflow-hidden p-2 pb-40 md:pb-40 md:p-4">
           <h2 className="text-2xl font-bold">My Watchlist</h2>
           <div className="mt-8">
